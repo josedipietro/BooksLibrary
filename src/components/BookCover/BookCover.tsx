@@ -1,5 +1,5 @@
 import Book from "../../models/book";
-import useBooks from "../../services/zustand";
+import useBooks from "../../services/store";
 
 const BookCover = ({ book }: { book: Book }) => {
   const { reserveBook } = useBooks((state) => ({

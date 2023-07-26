@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { AvailableBooks } from "./components/AvailableBooks/AvailableBooks";
 import { ReservedBooks } from "./components/ReservedBooks/ReservedBooks";
-import useBooks from "../../services/zustand";
+import useBooks from "../../services/store";
 
 function BooksPage() {
-  const { fetchBooks, reservedBooks } = useBooks((state) => ({
+  const { fetchBooks, books } = useBooks((state) => ({
     fetchBooks: state.fetchBooks,
-    reservedBooks: state.reservedBooks,
+    books: state.books,
   }));
 
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,9 @@ function BooksPage() {
         <>
           <AvailableBooks></AvailableBooks>
 
-          {reservedBooks.length > 0 ? <ReservedBooks></ReservedBooks> : null}
+          {books.filter((book) => book.reserved).length > 0 ? (
+            <ReservedBooks></ReservedBooks>
+          ) : null}
         </>
       )}
     </main>

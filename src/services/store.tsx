@@ -10,11 +10,10 @@ window.addEventListener("storage", (event) => {
 });
 
 const useBooks = create(
-  persist<State>(
-    (set) => ({
-      allBooks: [] as Book[],
+  persist<State, [], [], PersistedState>(
+    (set, get) => ({
       books: [] as Book[],
-      reservedBooks: [] as Book[],
+      reservedBooks: [],
       setPagesFilter: (pages: number) => {
         set(() => ({ pagesFilter: pages }));
       },
@@ -24,46 +23,61 @@ const useBooks = create(
       fetchBooks: async () => {
         await database.initialize();
 
-        set(() => ({ allBooks: database.books, books: database.books }));
+        const reservedBooks = get().reservedBooks;
+        console.log({ reservedBooks });
+        const books = database.books.map((book) => {
+          if (reservedBooks.includes(book.ISBN))
+            return {
+              ...book,
+              reserved: true,
+            };
+
+          return { ...book, reserved: false };
+        });
+        console.log({ books });
+        set(() => ({ books }));
       },
       setBooks: (books: Book[]) => set(() => ({ books })),
       reserveBook: (book: Book) => {
-        set((state) => {
-          state.reservedBooks.push(book);
+        set(() => {
+          const books = get().books;
+          const indexBook = books.indexOf(book);
+          books[indexBook].reserved = true;
           return {
-            books: state.books.filter((el) => el.title !== book.title),
-            reservedBooks: state.reservedBooks,
+            books,
           };
         });
       },
       unReserveBook: (book: Book) =>
-        set((state) => {
-          console.log(book);
-          state.books.push(book);
-          console.log(state.books);
-          const newReservedBooks = state.reservedBooks.filter(
-            (el) => el.title !== book.title
-          );
-          console.log(newReservedBooks);
-          const newBooks = [...state.books];
+        set(() => {
+          const books = get().books;
+          const indexBook = books.indexOf(book);
+          books[indexBook].reserved = false;
           return {
-            books: newBooks,
-            reservedBooks: newReservedBooks,
+            books,
           };
         }),
     }),
     {
       name: "books-library",
+      partialize: (state) => {
+        return {
+          reservedBooks: state.books
+            .filter((book) => book.reserved)
+            .map((book) => book.ISBN),
+        };
+      },
     }
   )
 );
 
+type PersistedState = { reservedBooks: string[] };
+
 export interface State {
-  allBooks: Book[];
   books: Book[];
-  reservedBooks: Book[];
   pagesFilter?: number;
   genreFilter?: string;
+  reservedBooks: string[];
   setPagesFilter: (pages: number) => void;
   setGenreFilter: (genre: string) => void;
   reserveBook: (book: Book) => void;

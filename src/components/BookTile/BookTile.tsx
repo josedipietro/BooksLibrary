@@ -1,5 +1,5 @@
 import Book from "../../models/book";
-import useBooks from "../../services/zustand";
+import useBooks from "../../services/store";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const BookTile = ({ book }: { book: Book }) => {

@@ -5,13 +5,13 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import useBooks from "../../services/zustand";
+import useBooks from "../../services/store";
 
 const GenreFilter = (props: { genres: string[] }) => {
   const { books, setBooks, setGenreFilter, pagesFilter, genreFilter } =
     useBooks((state) => ({
       setBooks: state.setBooks,
-      books: state.allBooks,
+      books: state.books,
       setGenreFilter: state.setGenreFilter,
       pagesFilter: state.pagesFilter,
       genreFilter: state.genreFilter,

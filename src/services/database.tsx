@@ -10,7 +10,6 @@ class Database {
   get genres(): string[] {
     const genres: string[] = [];
     this._books.forEach((book) => {
-      console.log(book.genre);
       if (!genres.includes(book.genre)) {
         genres.push(book.genre);
       }

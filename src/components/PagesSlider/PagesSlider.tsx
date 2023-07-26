@@ -1,13 +1,13 @@
 import { Slider } from "@mui/material";
 import database from "../../services/database";
-import useBooks from "../../services/zustand";
+import useBooks from "../../services/store";
 import { useEffect, useState } from "react";
 
 function PagesSlider() {
   const { books, setBooks, setPagesFilter, genreFilter, pageFilter } = useBooks(
     (state) => ({
       setBooks: state.setBooks,
-      books: state.allBooks,
+      books: state.books,
       setPagesFilter: state.setPagesFilter,
       genreFilter: state.genreFilter,
       pageFilter: state.pagesFilter,

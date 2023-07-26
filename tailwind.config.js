@@ -8,6 +8,9 @@ export default {
       textColor: "#424242",
       fontFamily: "Roboto Condensed",
     },
+    gridTemplateColumns: {
+      autofill: "repeat(auto-fill, minmax(15rem, 15rem))",
+    },
   },
   plugins: [],
 };

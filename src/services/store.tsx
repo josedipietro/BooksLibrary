@@ -12,7 +12,8 @@ window.addEventListener("storage", (event) => {
 const useBooks = create(
   persist<State, [], [], PersistedState>(
     (set, get) => ({
-      books: [] as Book[],
+      allBooks: [],
+      books: [],
       reservedBooks: [],
       setPagesFilter: (pages: number) => {
         set(() => ({ pagesFilter: pages }));
@@ -24,7 +25,6 @@ const useBooks = create(
         await database.initialize();
 
         const reservedBooks = get().reservedBooks;
-        console.log({ reservedBooks });
         const books = database.books.map((book) => {
           if (reservedBooks.includes(book.ISBN))
             return {
@@ -34,8 +34,12 @@ const useBooks = create(
 
           return { ...book, reserved: false };
         });
-        console.log({ books });
-        set(() => ({ books }));
+
+        set(() => ({
+          allBooks: books,
+          books,
+          pagesFilter: database.maxPagesBook.pages,
+        }));
       },
       setBooks: (books: Book[]) => set(() => ({ books })),
       reserveBook: (book: Book) => {
@@ -44,7 +48,7 @@ const useBooks = create(
           const indexBook = books.indexOf(book);
           books[indexBook].reserved = true;
           return {
-            books,
+            books: [...books],
           };
         });
       },
@@ -54,7 +58,7 @@ const useBooks = create(
           const indexBook = books.indexOf(book);
           books[indexBook].reserved = false;
           return {
-            books,
+            books: [...books],
           };
         }),
     }),
@@ -74,6 +78,7 @@ const useBooks = create(
 type PersistedState = { reservedBooks: string[] };
 
 export interface State {
+  allBooks: Book[];
   books: Book[];
   pagesFilter?: number;
   genreFilter?: string;

@@ -7,7 +7,7 @@ export const ReservedBooks = () => {
   }));
 
   return (
-    <section className=" px-2 w-full md:w-[315px]">
+    <section className="mt-4  w-full md:w-[420px] md:px-2 md:mt-0">
       <h3 className="p-4 font-extrabold bg-white text-3xl border border-black border-r-4 border-b-4 rounded-md">
         Lista de lectura
       </h3>

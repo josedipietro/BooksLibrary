@@ -1,27 +1,17 @@
 import { Slider } from "@mui/material";
 import database from "../../services/database";
 import useBooks from "../../services/store";
-import { useEffect, useState } from "react";
 
 function PagesSlider() {
-  const { books, setBooks, setPagesFilter, genreFilter, pageFilter } = useBooks(
-    (state) => ({
-      setBooks: state.setBooks,
-      books: state.books,
-      setPagesFilter: state.setPagesFilter,
-      genreFilter: state.genreFilter,
-      pageFilter: state.pagesFilter,
-    })
-  );
+  const { setPagesFilter } = useBooks((state) => ({
+    setBooks: state.setBooks,
+    books: state.allBooks,
+    setPagesFilter: state.setPagesFilter,
+    genreFilter: state.genreFilter,
+  }));
 
   const maxPagesBook = database.maxPagesBook;
   const minPagesBook = database.minPagesBook;
-
-  const [pages, setPages] = useState(maxPagesBook.pages);
-
-  useEffect(() => {
-    setPages(pageFilter ?? maxPagesBook.pages);
-  }, [pageFilter]);
 
   const marks = [
     {
@@ -36,14 +26,6 @@ function PagesSlider() {
 
   const onChange = (_: Event, value: number | number[]): void => {
     setPagesFilter(value as number);
-    let filteredBooks = books.filter((book) => book.pages <= (value as number));
-
-    if (genreFilter !== "" && genreFilter !== undefined)
-      filteredBooks = filteredBooks.filter(
-        (book) => book.genre === genreFilter
-      );
-
-    setBooks(filteredBooks);
   };
 
   return (
@@ -56,7 +38,6 @@ function PagesSlider() {
           max={maxPagesBook.pages}
           defaultValue={maxPagesBook.pages}
           marks={marks}
-          value={pages}
           valueLabelDisplay="auto"
           onChange={onChange}
           color="primary"

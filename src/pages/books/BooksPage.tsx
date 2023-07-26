@@ -23,7 +23,7 @@ function BooksPage() {
   }, []);
 
   return (
-    <main className="w-full flex p-8">
+    <main className="w-full flex md:flex-nowrap flex-wrap p-8">
       {loading ? (
         <p>cargando</p>
       ) : (

@@ -4,7 +4,10 @@ import { ReservedBooks } from "./components/ReservedBooks/ReservedBooks";
 import useBooks from "../../services/zustand";
 
 function BooksPage() {
-  const fetchBooks = useBooks((state) => state.fetchBooks);
+  const { fetchBooks, reservedBooks } = useBooks((state) => ({
+    fetchBooks: state.fetchBooks,
+    reservedBooks: state.reservedBooks,
+  }));
 
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +29,8 @@ function BooksPage() {
       ) : (
         <>
           <AvailableBooks></AvailableBooks>
-          <ReservedBooks></ReservedBooks>
+
+          {reservedBooks.length > 0 ? <ReservedBooks></ReservedBooks> : null}
         </>
       )}
     </main>

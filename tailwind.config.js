@@ -3,9 +3,10 @@ export default {
   content: ["./src/**/*.{html,ts,tsx}", "./index.html"],
   theme: {
     extend: {
-      accentColor: "#20c4c8",
-      backgroundColor: "#F2F2F2",
+      accentColor: "#751fff",
+      backgroundColor: "#e1e1e1",
       textColor: "#424242",
+      fontFamily: "Roboto Condensed",
     },
   },
   plugins: [],

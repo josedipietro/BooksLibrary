@@ -8,14 +8,14 @@ import { useEffect, useState } from "react";
 import useBooks from "../../services/zustand";
 
 const GenreFilter = (props: { genres: string[] }) => {
-  const { books, setBooks, setGenreFilter, pagesFilter } = useBooks(
-    (state) => ({
+  const { books, setBooks, setGenreFilter, pagesFilter, genreFilter } =
+    useBooks((state) => ({
       setBooks: state.setBooks,
       books: state.allBooks,
       setGenreFilter: state.setGenreFilter,
       pagesFilter: state.pagesFilter,
-    })
-  );
+      genreFilter: state.genreFilter,
+    }));
   const [genre, setGenre] = useState("");
 
   useEffect(() => {
@@ -31,6 +31,10 @@ const GenreFilter = (props: { genres: string[] }) => {
 
     setBooks(filteredBooks);
   }, [genre]);
+
+  useEffect(() => {
+    setGenre(genreFilter ?? "");
+  }, [genreFilter]);
 
   const onChangeSelect = (e: SelectChangeEvent<string>) => {
     setGenre(e.target.value);

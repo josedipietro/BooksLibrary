@@ -4,10 +4,7 @@ import useBooks from "../../services/store";
 
 function PagesSlider() {
   const { setPagesFilter } = useBooks((state) => ({
-    setBooks: state.setBooks,
-    books: state.allBooks,
     setPagesFilter: state.setPagesFilter,
-    genreFilter: state.genreFilter,
   }));
 
   const maxPagesBook = database.maxPagesBook;

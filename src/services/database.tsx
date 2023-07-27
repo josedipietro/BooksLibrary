@@ -1,7 +1,7 @@
 import Book from "../models/book";
 
-class Database {
-  private _books: Book[] = [];
+abstract class Database {
+  protected _books: Book[] = [];
 
   get books(): Book[] {
     return this._books;
@@ -32,6 +32,10 @@ class Database {
     });
   }
 
+  abstract initialize(): void;
+}
+
+class JSONDatabase extends Database {
   async initialize() {
     const data = await import("../../books.json");
     this._books = data.library.map(
@@ -51,5 +55,5 @@ class Database {
 }
 
 // exportando una sola instancia de la DB
-const database = new Database();
+const database = new JSONDatabase();
 export default database;

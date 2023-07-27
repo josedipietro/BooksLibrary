@@ -5,7 +5,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import useBooks from "../../services/store";
+import useBooks from "../../store/store";
 
 const GenreFilter = (props: { genres: string[] }) => {
   const { setGenreFilter } = useBooks((state) => ({

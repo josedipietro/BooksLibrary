@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BookCover from "../../../../components/BookCover/BookCover";
 import FiltersHeader from "../../../../components/FiltersHeader/FiltersHeader";
 import Book from "../../../../models/book";
-import useBooks, { State } from "../../../../services/store";
+import useBooks, { State } from "../../../../store/store";
 
 export const AvailableBooks = () => {
   const { books, genreFilter, pagesFilter } = useBooks((state: State) => ({

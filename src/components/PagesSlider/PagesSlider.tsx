@@ -1,6 +1,6 @@
 import { Slider } from "@mui/material";
-import database from "../../services/database";
-import useBooks from "../../services/store";
+import database from "../../data/database";
+import useBooks from "../../store/store";
 
 function PagesSlider() {
   const { setPagesFilter } = useBooks((state) => ({

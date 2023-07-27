@@ -1,5 +1,5 @@
 import BookTile from "../../../../components/BookTile/BookTile";
-import useBooks from "../../../../services/store";
+import useBooks from "../../../../store/store";
 
 export const ReservedBooks = () => {
   const { books } = useBooks((state) => ({

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import Book from "../models/book";
-import database from "./database";
+import database from "../data/database";
 import { persist } from "zustand/middleware";
 
 window.addEventListener("storage", (event) => {

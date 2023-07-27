@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AvailableBooks } from "./components/AvailableBooks/AvailableBooks";
 import { ReservedBooks } from "./components/ReservedBooks/ReservedBooks";
-import useBooks from "../../services/store";
+import useBooks from "../../store/store";
 
 function BooksPage() {
   const { fetchBooks, books } = useBooks((state) => ({

@@ -1,7 +1,7 @@
 import PagesSlider from "../PagesSlider/PagesSlider";
 import GenreFilter from "../GenreFilter/GenreFilter";
-import database from "../../services/database";
-import useBooks from "../../services/store";
+import database from "../../data/database";
+import useBooks from "../../store/store";
 
 const FiltersHeader = () => {
   const { books } = useBooks((state) => ({
